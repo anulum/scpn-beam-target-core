@@ -15,9 +15,12 @@ SCPN Beam Target Core — Architecture
 `SCPN-BEAM-TARGET-CORE` is the device-family owner for beam-target and
 colliding-beam fusion systems in the SCPN Reactor Systems Research Group
 portfolio. The
-repository owns one implemented capability — the device configuration model
-at `computational_prototype` (`src/scpn_beam_target_core/`, design record ADR 0002,
-evidence record `VALIDATION.md#device-configuration-model`). Every other
+repository owns two implemented capabilities at
+`computational_prototype` in `src/scpn_beam_target_core/`: the device
+configuration model (design record ADR 0002, evidence record
+`VALIDATION.md#device-configuration-model`) and the diagnostic and
+clock semantics model (design record ADR 0003, evidence record
+`VALIDATION.md#diagnostic-and-clock-semantics`). Every other
 section below describes boundaries and contracts. The claim inventory is
 empty; capability and claim inventories are generated and drift-checked.
 
