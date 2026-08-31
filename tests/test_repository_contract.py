@@ -62,6 +62,8 @@ REQUIRED_PATHS = (
     "src/scpn_beam_target_core/configuration.py",
     "src/scpn_beam_target_core/errors.py",
     "src/scpn_beam_target_core/observability.py",
+    "src/scpn_beam_target_core/plan_envelope.py",
+    "tests/data/plan_envelope_fixture.json",
     "src/scpn_beam_target_core/parameters.py",
     "studio/portfolio-descriptor.json",
     "studio/portfolio-descriptor.schema.json",
