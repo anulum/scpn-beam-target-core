@@ -23,27 +23,31 @@ this repository until it appears in the capability inventory with evidence.
 - Local and workflow gate definitions (lint, typing, tests, coverage,
   REUSE, security audit, SBOM, documentation checks).
 
-## Planned (no implementation exists; ordering is not a commitment)
+- **Device configuration model** (landed 2026-08-31) — validated
+  beam-line objects for `beam_target` and `colliding_beam` with the hard
+  beam-line-count class invariant, nonrelativistic centre-of-mass
+  energy relations, a cross-section-window advisory (Bosch & Hale
+  1992), canonical digests, and the SPO registry data pin;
+  `computational_prototype` (ADR 0002,
+  `VALIDATION.md#device-configuration-model`). Luminosity envelopes and
+  yield/loss accounting remain future work under the same capability.
 
-1. **Device configuration model** — typed configuration policy for the
-   beam-target family (accelerator and target-station classes, beam and
-   luminosity envelopes, paired yield/loss accounting contracts), with
-   evidence-maturity target `computational_prototype`.
-2. **Diagnostic and clock semantics** — declared beam, luminosity, and
+## Planned (no implementation exists; ordering is not a commitment)
+1. **Diagnostic and clock semantics** — declared beam, luminosity, and
    reaction-product channels with bunch-level clock identities, aligned
    with the SCPN Phase Orchestrator semantic profile.
-3. **Safety-envelope declaration** — machine-readable operational envelope
+2. **Safety-envelope declaration** — machine-readable operational envelope
    (beam power, target thermal, activation bounds) consumed by the
    CONTROL adapter contract.
-4. **CONTROL adapter implementation** — device-owned adapter against the
+3. **CONTROL adapter implementation** — device-owned adapter against the
    published specification, with replay fixtures and HIL evidence,
    targeting `control_research_ready` only after replay and HIL
    acceptance.
-5. **Solver seam consumption** — versioned consumption of exact
+4. **Solver seam consumption** — versioned consumption of exact
    `SCPN-FUSION-CORE` seams for kinematic reaction-rate surfaces,
    strictly after the family migration gate proves exact replacement; no
    solver code is copied.
-6. **Facility-data correlation** — preregistered acceptance contracts
+5. **Facility-data correlation** — preregistered acceptance contracts
    against identified facility or published experimental data, targeting
    `experiment_correlated` per capability.
 

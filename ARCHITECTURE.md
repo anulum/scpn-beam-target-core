@@ -12,9 +12,10 @@ SCPN Beam Target Core — Architecture summary
 
 `SCPN-BEAM-TARGET-CORE` is the device-family owner for beam-target and
 colliding-beam fusion systems inside the SCPN Reactor Systems Research
-Group. The repository is currently `architecture_only`: it defines the
-device boundary, its ecosystem contracts, and the validation tooling that
-enforces both, and it implements no reactor capability.
+Group. The repository holds one implemented
+capability — the device configuration model at `computational_prototype`
+(`src/scpn_beam_target_core/`, ADR 0002) — alongside the device boundary, its
+ecosystem contracts, and the validation tooling that enforces both.
 
 The authoritative architecture record is
 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). The ownership decision and
