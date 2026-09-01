@@ -8,6 +8,11 @@ Contact: www.anulum.li | protoscience@anulum.li
 SCPN Beam Target Core — README
 -->
 
+<div align="center">
+  <img src="docs/assets/repo_header.png"
+       alt="SCPN Beam Target Core — One Beam, One Target">
+</div>
+
 # SCPN Beam Target Core
 
 Governed device-family repository for beam-target and colliding-beam fusion
