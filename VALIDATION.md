@@ -212,3 +212,62 @@ gate:
   domain (`clk_facility` root, `clk_shot` member); multi-domain rules
   are exercised by test-constructed plans. Scopes are declarations;
   `mapping_state` stays `unmapped`.
+
+## Level-0 device physics
+
+Evidence record of the `level0_device_physics` capability
+(`computational_prototype`; design record:
+`docs/adr/0005-level0-device-physics.md`).
+
+What is exercised, all under the 100 % statement-and-branch coverage gate:
+
+- The Duane total cross section of the six principal light-ion reactions,
+  with the coefficients the 2019 NRL Plasma Formulary tabulates on
+  page 44. Its energy argument is the incident-ion energy with the target
+  at rest, which is the frame the fit was made in.
+- The record evaluating that fit at the **equivalent stationary-target
+  energy** rather than at the declared beam energy, and carrying both.
+  Under the equal-mass kinematics the configuration uses, a colliding-beam
+  machine reaches the centre-of-mass energy of a stationary-target machine
+  at four times its own beam energy; the ratio is exact and asserted as an
+  equality.
+- Which of the two cross sections is larger is **not** fixed, and both
+  directions are exercised: a colliding-beam configuration below the
+  resonance moves towards it and gains, one already at it is thrown past
+  and loses.
+- The centre-of-mass energy taken from the configuration's own method
+  rather than restated, so the two cannot drift apart.
+- The equal-mass approximation reported beside its exact value: 1.669 for
+  D-T, from the formulary's own printed masses, against the 2 in force.
+- The beam bookkeeping: ion rate from current, and power from energy and
+  current with the elementary charge cancelling. A singly charged beam of
+  one milliampere at one kiloelectronvolt carries exactly one watt, and
+  that is asserted as an equality because the cancellation is algebraic.
+- Fail-closed refusal of every input outside its documented interval, each
+  naming its field. Nothing is clamped. A neutral or negative charge state
+  is refused rather than reinterpreted.
+- The Gamow boundary at 0.0043 keV tested from both sides: zero below it,
+  positive above.
+- Canonical serialisation with a SHA-256 digest, its idempotence under
+  re-canonicalisation, and its movement under a changed configuration.
+
+Anchors — a cross-check inside one filed document. The formulary prints
+the Duane coefficients and, further down the same page, a table of
+Maxwellian-averaged D-T reaction rates; one implies the other, so
+averaging the fit verifies the transcription of all six coefficient
+tuples.
+
+| Printed | Where | Recovered |
+|---|---|---|
+| ten D-T reaction rates, 1 keV to 1000 keV | page 44 table | every one, rounding to the printed two significant figures |
+| `m_e/m_D` as `2.72e-4` and as `1/3670` | page 44 | each recovers the other |
+| `m_e/m_T` as `1.82e-4` and as `1/5496` | page 44 | each recovers the other |
+| the printed square roots `1.65e-2 = 1/60.6` and `1.35e-2 = 1/74.1` | page 44 | both, from the ratios |
+
+The residual against the reaction-rate table is at most 1.4 % and is the
+table's own rounding, not quadrature error: fifty times as many intervals
+move the answer by less than a part in ten thousand, and that is tested.
+
+No parameter set describes any real machine, and no reaction rate, yield,
+gain or breakeven statement follows from the record — no beam stopping,
+target density or target thickness is modelled anywhere.

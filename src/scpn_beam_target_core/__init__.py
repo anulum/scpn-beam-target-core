@@ -8,14 +8,15 @@
 
 """Device capability models of the SCPN beam-target device family.
 
-Public surface of the ``device_configuration_model`` and
-``diagnostic_clock_semantics`` capabilities at
-``computational_prototype`` maturity: validated parameter objects,
-synthetic diagnostic and clock declarations aligned with the pinned SPO
-observability catalogue, documented consistency estimates, canonical
-serialisation with SHA-256 digests, and data-only pins to the SPO
-registries. No claim about any real machine or diagnostic is made
-anywhere in this package.
+Public surface of the ``device_configuration_model``,
+``diagnostic_clock_semantics`` and ``level0_device_physics``
+capabilities at ``computational_prototype`` maturity: validated
+parameter objects, synthetic diagnostic and clock declarations aligned
+with the pinned SPO observability catalogue, the published cross-section
+fit of the light-ion reactions with the frame it was made in stated,
+documented consistency estimates, canonical serialisation with SHA-256
+digests, and data-only pins to the SPO registries. No claim about any
+real machine or diagnostic is made anywhere in this package.
 """
 
 from __future__ import annotations
@@ -52,6 +53,22 @@ from scpn_beam_target_core.observability import (
     plan_from_record,
 )
 from scpn_beam_target_core.parameters import BeamLine
+from scpn_beam_target_core.physics import (
+    DT_LAB_ENERGY_RATIO,
+    EQUAL_MASS_LAB_ENERGY_RATIO,
+    LEVEL0_NON_CLAIMS,
+    LEVEL0_SCHEMA,
+    LEVEL0_SCHEMA_VERSION,
+    REACTIONS,
+    BeamInputs,
+    Level0Physics,
+    OperatingPoint,
+    beam_power_w,
+    ion_rate_per_s,
+    level0_physics,
+    maxwellian_reactivity_cm3_per_s,
+    total_cross_section_barn,
+)
 from scpn_beam_target_core.plan_envelope import (
     PlanEnvelope,
     envelope_for_plan,
@@ -67,7 +84,14 @@ __all__ = [
     "BEAM_LINES_BY_IDENTIFIER",
     "CATALOGUE_BINDING",
     "CM_ENERGY_WINDOW_KEV",
+    "DT_LAB_ENERGY_RATIO",
+    "EQUAL_MASS_LAB_ENERGY_RATIO",
+    "LEVEL0_NON_CLAIMS",
+    "LEVEL0_SCHEMA",
+    "LEVEL0_SCHEMA_VERSION",
     "OWNED_CONFIGURATIONS",
+    "REACTIONS",
+    "BeamInputs",
     "BeamLine",
     "CandidateProfile",
     "ClockKind",
@@ -81,19 +105,26 @@ __all__ = [
     "DiagnosticPlan",
     "DiagnosticPlanError",
     "FrameKind",
+    "Level0Physics",
     "ObservabilityBinding",
     "ObservabilityClass",
+    "OperatingPoint",
     "PlanEnvelope",
     "ReferenceFrame",
     "RegistryBinding",
     "SemanticCarrier",
     "__version__",
+    "beam_power_w",
     "configuration_from_bytes",
     "configuration_from_record",
     "envelope_for_plan",
     "envelope_from_bytes",
     "envelope_from_record",
+    "ion_rate_per_s",
+    "level0_physics",
+    "maxwellian_reactivity_cm3_per_s",
     "plan_from_bytes",
     "plan_from_record",
+    "total_cross_section_barn",
     "verify_envelope",
 ]
