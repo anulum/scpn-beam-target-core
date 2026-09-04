@@ -271,3 +271,84 @@ move the answer by less than a part in ten thousand, and that is tested.
 No parameter set describes any real machine, and no reaction rate, yield,
 gain or breakeven statement follows from the record — no beam stopping,
 target density or target thickness is modelled anywhere.
+
+## Device 3D model
+
+Evidence record of the `device_3d_model` capability
+(`computational_prototype`; design record:
+`docs/adr/0006-device-3d-and-cad-models.md`).
+
+Consumer contract, written from this repository's own code:
+`docs/DEVICE_3D_MODEL_CONTRACT.md`.
+
+**No dimension in this capability reproduces a published value.** The two
+works this repository cites for its beam physics are paywalled and neither
+is on file; the one filed source prints no geometry. Every length is
+declared, the fixtures say so, and no test claims otherwise.
+
+What is exercised, all under the 100 % statement-and-branch coverage gate:
+
+- A body set that **depends on the configuration**: a beam-target device
+  is a beam pipe, a solid target and the dump behind it; a colliding-beam
+  device is two beam pipes and nothing between them. Its beams are each
+  other's target and they meet in vacuum, so neither an interaction region
+  nor the beam itself carries a body.
+- Both directions of that rule refused rather than defaulted: a
+  beam-target device given no target assembly, and a colliding-beam device
+  given one.
+- A target or dump **below** the bore radius refused, naming both fields
+  and printing both values — a body the beam passes around does not
+  intercept it — while one exactly equal to the bore is admitted, because
+  it intercepts everything the pipe can deliver.
+- The two beam lines of a collider built as mirror images: equal volumes,
+  z extents that are negatives of each other, and neither reaching the
+  interaction point.
+- The target at the origin and the dump immediately behind it, downstream
+  being the positive direction.
+- The tessellation losing exactly the inscribed polygon and nothing else,
+  at 8, 64 and 256 segments.
+- Fail-closed refusal of an invalid segment count and of a record built
+  with the wrong bodies, the wrong order, or an unknown identifier.
+- Canonical serialisation with a SHA-256 digest that moves with the
+  envelope, the assembly, the segment count and the configuration; a
+  colliding-beam record carries `null` for the target digest rather than
+  omitting or inventing it.
+
+## Device CAD model
+
+Evidence record of the `device_cad_model` capability
+(`computational_prototype`; design record:
+`docs/adr/0006-device-3d-and-cad-models.md`).
+
+What is exercised, all under the 100 % statement-and-branch coverage gate:
+
+- The same configuration-dependent body set as exact B-rep solids through
+  the shared library's `cad` group, each checked fail-closed by the
+  library's evidence kernel against its analytic closed forms and against
+  its tier-G1 twin, and exported as normalised STEP bytes with a digest.
+- The target rules enforced at **both** tiers, not only where the meshes
+  are built.
+- **Which deflection binds, measured for this family.** At the declared
+  `1e-5 m` and `0.1 rad` the **linear** criterion binds: doubling the
+  angular deflection changes no deficit at all, and the three bodies of a
+  beam-target build show three different deficits because their radii
+  differ. That is the opposite of the tokamak family, where one angular
+  step gave every body the same deficit.
+- The deflections chosen for the **tightest bound that still passes**
+  rather than the widest margin: every declared bound is under 0.07 % and
+  every body clears it by more than twenty times. A coarser linear
+  deflection was measured to give margins of a hundred and fifty times on
+  a bound ten times looser, which claims less.
+- The two beam lines of a collider sharing one bound exactly and one
+  deficit to within 1.5e-9 relative — they sit at opposite ends of the
+  axis, so their volume sums accumulate differently.
+- Fail-closed refusal of a non-positive deflection, of a manifest of the
+  wrong schema or body count, of bodies out of order, and of an unknown
+  identifier.
+- STEP bytes present, their digest matching them, and the two
+  configurations producing different bytes.
+
+Determinism of the STEP bytes is claimed within one pinned back-end
+environment only, never across back-end versions. No body is an
+engineering model, no fabrication tolerance is carried, and no value
+describes any real machine or facility.

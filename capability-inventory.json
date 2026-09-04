@@ -14,16 +14,26 @@
       "evidence_maturity": "computational_prototype",
       "evidence_pointer": "VALIDATION.md#level-0-device-physics",
       "identifier": "level0_device_physics"
+    },
+    {
+      "evidence_maturity": "computational_prototype",
+      "evidence_pointer": "VALIDATION.md#device-3d-model",
+      "identifier": "device_3d_model"
+    },
+    {
+      "evidence_maturity": "computational_prototype",
+      "evidence_pointer": "VALIDATION.md#device-cad-model",
+      "identifier": "device_cad_model"
     }
   ],
   "claims": [],
   "evidence_maturity": "computational_prototype",
-  "implemented_capability_count": 3,
+  "implemented_capability_count": 5,
   "project": "SCPN-BEAM-TARGET-CORE",
   "schema": "scpn.capability-inventory.v1",
   "schema_version": "1.0.0",
   "source": {
     "manifest_path": "reactor-domain.json",
-    "manifest_sha256": "506507ee746fbcbf63f22ac615fedebab47308135edeac4dc6d30c0309a796ec"
+    "manifest_sha256": "5552b128878bb65f033699e27cf826e873c09a16d69a73522d99a1bd1ce3e560"
   }
 }

@@ -23,7 +23,7 @@ configurations of the SCPN Phase Orchestrator reactor registry:
 (counter-propagating particle beams).
 
 **Evidence maturity: `computational_prototype`** (per-capability; ADR 0002).
-Three capabilities are implemented: the device configuration model —
+Five capabilities are implemented: the device configuration model —
 validated parameter objects with documented consistency estimates,
 canonical serialisation, and a data-only SPO registry pin
 (evidence: `VALIDATION.md#device-configuration-model`); the
@@ -35,7 +35,13 @@ physics — the published cross-section fit of the light-ion reactions
 evaluated at the energy a declared configuration presents to a target at
 rest, with what a declared beam current and energy amount to, anchored on
 values a filed source prints (ADR 0005, evidence:
-`VALIDATION.md#level-0-device-physics`). No parameter set or
+`VALIDATION.md#level-0-device-physics`); and the two geometry tiers —
+the tessellated and B-rep models of a beam line and what it fires into,
+whose body set follows the configuration because a colliding-beam device
+has no target (ADR 0006, consumer contract:
+`docs/DEVICE_3D_MODEL_CONTRACT.md`, evidence:
+`VALIDATION.md#device-3d-model` and `VALIDATION.md#device-cad-model`).
+No parameter set or
 channel describes any real machine or diagnostic; the claim inventory
 is empty and verified by the domain validator.
 
