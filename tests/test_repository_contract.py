@@ -246,7 +246,8 @@ def test_kernel_library_pin_agrees_with_the_dependency_and_the_workflows() -> No
         (
             "scpn-reactor-kernels[cad] @ git+https://github.com/anulum/"
             f"scpn-reactor-kernels.git@{pin['source_commit']}"
-        )
+        ),
+        "trame>=3.13.2,<4",
     ]
     assert scpn_reactor_kernels.__version__ == pin["version"]
     workflows = REPO / ".github" / "workflows"

@@ -12,6 +12,13 @@ SCPN Beam Target Core — CHANGELOG
 
 ## [Unreleased]
 
+### Changed
+
+- Align Ruff, coverage and CycloneDX with the current compatible validation
+  chain. Keep optional CAD on Trame 3 until the pinned kernel dependency is
+  migrated with its full device contract; the current VTK adapter requires
+  `trame-client<4`.
+
 ### Added
 
 - Diagnostic-plan depth: per-channel signal inventories, frame

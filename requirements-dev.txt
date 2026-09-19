@@ -6,15 +6,14 @@
 # Contact: www.anulum.li | protoscience@anulum.li
 # SCPN Beam Target Core — pinned development and validation toolchain
 #
-# Development-only lock for the validation tooling. This is not a runtime
-# dependency manifest: the repository declares zero runtime dependencies at
-# architecture-only maturity.
+# Development-only pins for validation tooling. Runtime and optional CAD
+# dependencies are declared separately in pyproject.toml.
 pre-commit==4.6.2
-ruff==0.16.6
+ruff==0.16.8
 mypy==2.3.1
 pytest==9.1.1
 pytest-cov==7.1.0
-coverage==7.16.0
+coverage==7.16.1
 reuse==6.2.0
 PyYAML==6.0.3
 types-PyYAML==6.0.12.20260906
