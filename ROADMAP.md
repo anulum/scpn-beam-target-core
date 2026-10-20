@@ -5,61 +5,14 @@ Commercial license available
 © Code 2020–2026 Miroslav Šotek. All rights reserved.
 ORCID: 0009-0009-3560-0851
 Contact: www.anulum.li | protoscience@anulum.li
-SCPN Beam Target Core — ROADMAP
+SCPN BEAM TARGET CORE — research milestones
 -->
 
 # Roadmap
 
-Planned work and implemented capability are kept strictly separate. Anything
-listed under "Planned" carries no implementation, no code, and no claim in
-this repository until it appears in the capability inventory with evidence.
+Planned milestones; completion depends on published evidence and validation.
 
-## Implemented (repository infrastructure, not reactor capability)
-
-- Domain manifest (`reactor-domain.json`) with validator.
-- Derived Studio portfolio descriptor (`not_federated`) with drift check.
-- Generated capability inventory (truthfully empty) with drift check.
-- CONTROL adapter specification (contract only, no implementation).
-- Local and workflow gate definitions (lint, typing, tests, coverage,
-  REUSE, security audit, SBOM, documentation checks).
-
-- **Device configuration model** (landed 2026-08-31) — validated
-  beam-line objects for `beam_target` and `colliding_beam` with the hard
-  beam-line-count class invariant, nonrelativistic centre-of-mass
-  energy relations, a cross-section-window advisory (Bosch & Hale
-  1992), canonical digests, and the SPO registry data pin;
-  `computational_prototype` (ADR 0002,
-  `VALIDATION.md#device-configuration-model`). Luminosity envelopes and
-  yield/loss accounting remain future work under the same capability.
-- **Diagnostic and clock semantics** (landed 2026-08-31) — synthetic
-  diagnostic-channel and clock declarations aligned fail-closed with the
-  pinned SPO observability-profile catalogue (release `1.0.0`): candidate
-  applicability, carrier admissibility, exact evidence vocabularies,
-  clock-kind compatibility, Nyquist bounds, canonical digests; the
-  reference plan mirrors canonical practice (RF cavity/bunch-phase
-  reference, target-outcome set, synthetic oscillator);
-  `computational_prototype` (ADR 0003,
-  `VALIDATION.md#diagnostic-and-clock-semantics`). No ingress is
-  declared; the SPO semantic-profile state remains `not_declared`.
-
-## Planned (no implementation exists; ordering is not a commitment)
-1. **Safety-envelope declaration** — machine-readable operational envelope
-   (beam power, target thermal, activation bounds) consumed by the
-   CONTROL adapter contract.
-2. **CONTROL adapter implementation** — device-owned adapter against the
-   published specification, with replay fixtures and HIL evidence,
-   targeting `control_research_ready` only after replay and HIL
-   acceptance.
-3. **Solver seam consumption** — versioned consumption of exact
-   `SCPN-FUSION-CORE` seams for kinematic reaction-rate surfaces,
-   strictly after the family migration gate proves exact replacement; no
-   solver code is copied.
-4. **Facility-data correlation** — preregistered acceptance contracts
-   against identified facility or published experimental data, targeting
-   `experiment_correlated` per capability.
-
-## Not planned in this repository
-
-Beam-driven implosion ICF, the dense plasma focus, electrostatic
-potential-well devices, magnetic-confinement systems, generic controller
-mathematics, machine-protection logic, and any direct actuation path.
+1. Establish reference cases and source support for beam and target reaction studies.
+2. Validated stopping, reaction yield and target design comparisons.
+3. Independently assess prediction accuracy and uncertainty against held-out reference cases.
+4. Provide reproducible design studies, understandable results and documented integration.
