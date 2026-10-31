@@ -204,3 +204,12 @@ def test_the_digest_identifies_the_record() -> None:
         synthetic_configuration(kinetic_energy_kev=130.0), reference_inputs()
     )
     assert moved.digest_sha256() != record.digest_sha256()
+
+
+@pytest.mark.parametrize("charge", [True, 1.0, 1.5], ids=["bool", "float", "fraction"])
+def test_beam_inputs_refuse_a_charge_number_that_is_not_an_integer(
+    charge: object,
+) -> None:
+    """The level-0 input dataclass applies the same integer contract."""
+    with pytest.raises(DeviceConfigurationError, match="charge_number: must be an int"):
+        BeamInputs(reaction="d_t", charge_number=charge)  # type: ignore[arg-type]

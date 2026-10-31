@@ -104,3 +104,36 @@ def test_the_beam_power_agrees_with_the_ion_rate_times_the_energy() -> None:
                 assert math.isclose(
                     beam_power_w(energy, current, charge), long_form, rel_tol=1e-12
                 )
+
+
+@pytest.mark.parametrize(
+    "charge",
+    [True, False, 1.0, 1.5, math.nan, math.inf, "1"],
+    ids=["true", "false", "integral-float", "fraction", "nan", "inf", "string"],
+)
+def test_a_charge_number_that_is_not_an_integer_is_refused(charge: object) -> None:
+    """A charge state counts elementary charges; it is never rounded.
+
+    Booleans are refused although Python counts them as integers, and so
+    is an integral float: the guard runs before any computation.
+    """
+    with pytest.raises(DeviceConfigurationError, match="charge_number: must be an int"):
+        require_charge_number(charge)  # type: ignore[arg-type]
+    with pytest.raises(DeviceConfigurationError, match="charge_number: must be an int"):
+        ion_rate_per_s(50.0, charge)  # type: ignore[arg-type]
+    with pytest.raises(DeviceConfigurationError, match="charge_number: must be an int"):
+        beam_power_w(120.0, 50.0, charge)  # type: ignore[arg-type]
+
+
+@pytest.mark.parametrize("charge", [0, -1])
+def test_a_charge_number_below_one_is_refused(charge: int) -> None:
+    """Zero and negative integers keep their own message."""
+    with pytest.raises(DeviceConfigurationError, match="strictly positive"):
+        ion_rate_per_s(50.0, charge)
+
+
+def test_integer_charge_numbers_keep_their_results() -> None:
+    """The guard changes nothing for valid integers, the minimum included."""
+    assert require_charge_number(1) == 1
+    assert ion_rate_per_s(50.0, 2) == ion_rate_per_s(50.0, 1) / 2
+    assert beam_power_w(1.0, 1.0, 1) == pytest.approx(1.0, rel=1e-12)

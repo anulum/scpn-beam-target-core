@@ -125,13 +125,20 @@ class DeviceConfiguration:
         Raises
         ------
         DeviceConfigurationError
-            If the identifier is not owned by this repository or the
-            beam-line count contradicts it.
+            If the identifier is not owned by this repository, the
+            beam-line count is not an integer (booleans and floats
+            included), or it contradicts the identifier.
         """
         if self.identifier not in OWNED_CONFIGURATIONS:
             raise DeviceConfigurationError(
                 f"identifier: {self.identifier!r} is not owned by "
                 f"SCPN-BEAM-TARGET-CORE; owned: {OWNED_CONFIGURATIONS!r}"
+            )
+        if isinstance(self.beam_line_count, bool) or not isinstance(
+            self.beam_line_count, int
+        ):
+            raise DeviceConfigurationError(
+                f"beam_line_count: must be an integer, got {self.beam_line_count!r}"
             )
         expected = BEAM_LINES_BY_IDENTIFIER[self.identifier]
         if self.beam_line_count != expected:

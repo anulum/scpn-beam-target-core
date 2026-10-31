@@ -48,11 +48,18 @@ def require_charge_number(charge_number: int) -> int:
     Raises
     ------
     DeviceConfigurationError
-        If the charge number is not strictly positive. A neutral or
-        negative beam is refused rather than reinterpreted: the device
-        family declares accelerated ions, and a current carried by
-        anything else would make the ion rate below meaningless.
+        If the charge number is not an integer (a boolean, a fractional or
+        an integral float, NaN or infinity included) or not strictly
+        positive. A charge state is a count of elementary charges, so it is
+        refused rather than rounded. A neutral or negative beam is refused
+        rather than reinterpreted: the device family declares accelerated
+        ions, and a current carried by anything else would make the ion
+        rate below meaningless.
     """
+    if isinstance(charge_number, bool) or not isinstance(charge_number, int):
+        raise DeviceConfigurationError(
+            f"charge_number: must be an integer, got {charge_number!r}"
+        )
     if charge_number <= 0:
         raise DeviceConfigurationError(
             f"charge_number: must be strictly positive, got {charge_number!r}"

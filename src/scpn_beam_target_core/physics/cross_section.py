@@ -239,12 +239,15 @@ def maxwellian_reactivity_cm3_per_s(
     Raises
     ------
     DeviceConfigurationError
-        If the reaction is unknown or any input leaves its interval.
+        If the reaction is unknown, any input leaves its interval, or the
+        sample count is not an integer (booleans and floats included).
     """
     require_reaction(reaction)
     require_positive("temperature_kev", temperature_kev)
     require_positive("reduced_mass_kg", reduced_mass_kg)
     require_positive("lab_energy_ratio", lab_energy_ratio)
+    if isinstance(samples, bool) or not isinstance(samples, int):
+        raise DeviceConfigurationError(f"samples: must be an integer, got {samples!r}")
     if samples <= 0:
         raise DeviceConfigurationError(
             f"samples: must be strictly positive, got {samples!r}"

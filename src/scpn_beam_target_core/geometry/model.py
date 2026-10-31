@@ -308,11 +308,14 @@ def build_device_model(
     Raises
     ------
     DeviceGeometryError
-        If the segment count is invalid, the target assembly does not
+        If the segment count is not an integer (booleans and floats
+        included) or otherwise invalid, the target assembly does not
         match the configuration, or a target does not intercept the bore;
         the library's refusal is re-raised under the device error type
         with its message.
     """
+    if isinstance(segments, bool) or not isinstance(segments, int):
+        raise DeviceGeometryError(f"segments: must be an integer, got {segments!r}")
     try:
         require_segments(segments)
     except GeometryError as exc:

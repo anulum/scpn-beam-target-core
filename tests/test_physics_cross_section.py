@@ -274,3 +274,23 @@ def test_constants_are_the_documented_formulary_editions() -> None:
     assert -4.5e-4 < relative(TRITON_MASS_KG, 5.0073567512e-27) < -4.3e-4
     assert 7.9e-4 < relative(DT_REDUCED_MASS_KG, 2.004866007825828e-27) < 8.1e-4
     assert 8.2e-4 < relative(DT_LAB_ENERGY_RATIO, 1.6677342843604501) < 8.4e-4
+
+
+@pytest.mark.parametrize(
+    "samples",
+    [True, 2000.0, 10.5, math.nan, math.inf],
+    ids=["bool", "integral-float", "fraction", "nan", "inf"],
+)
+def test_a_sample_count_that_is_not_an_integer_is_refused(samples: object) -> None:
+    """The quadrature count is refused with the family error, not a TypeError."""
+    with pytest.raises(DeviceConfigurationError, match="samples: must be an integer"):
+        maxwellian_reactivity_cm3_per_s(
+            "d_t",
+            10.0,
+            samples=samples,  # type: ignore[arg-type]
+        )
+
+
+def test_the_smallest_sample_count_is_accepted() -> None:
+    """One interval is the valid minimum and returns a finite rate."""
+    assert math.isfinite(maxwellian_reactivity_cm3_per_s("d_t", 10.0, samples=1))

@@ -12,6 +12,17 @@ SCPN Beam Target Core — CHANGELOG
 
 ## [Unreleased]
 
+### Fixed
+
+- Discrete inputs are integers or are refused with the family error before
+  any computation: the ion charge number (`require_charge_number`,
+  `ion_rate_per_s`, `beam_power_w`, `BeamInputs`), the quadrature sample
+  count of the thermal average, the beam-line count at construction (the
+  record decoder already refused) and the tessellation segment count.
+  Booleans, integral and fractional floats, NaN and infinity used to be
+  accepted or to fail with a bare `TypeError`; a charge of `True` or `1.5`
+  produced a rate. Valid integers keep their results.
+
 ### Security
 
 - `configuration_from_bytes` refuses duplicate JSON members and any document

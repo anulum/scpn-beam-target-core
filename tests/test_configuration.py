@@ -229,3 +229,19 @@ def test_configuration_from_bytes_rejects_another_spelling_of_a_value() -> None:
     assert data.count(canonical) == 1
     with pytest.raises(DeviceConfigurationError, match="non-canonical document"):
         configuration_from_bytes(data.replace(canonical, b'"kinetic_energy_kev":1.2e2'))
+
+
+@pytest.mark.parametrize("count", [True, 1.0], ids=["bool", "integral-float"])
+def test_constructor_refuses_a_beam_line_count_that_is_not_an_integer(
+    count: object,
+) -> None:
+    """The constructor holds the integer contract the record decoder holds."""
+    with pytest.raises(
+        DeviceConfigurationError, match="beam_line_count: must be an int"
+    ):
+        DeviceConfiguration(
+            identifier="beam_target",
+            beam=synthetic_configuration().beam,
+            beam_line_count=count,  # type: ignore[arg-type]
+            registry=synthetic_configuration().registry,
+        )
