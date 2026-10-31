@@ -28,7 +28,7 @@ import pytest
 
 REPO = Path(__file__).resolve().parents[1]
 
-TYPED_PYTHON_ROOTS = ("src/", "tools/", "tests/")
+TYPED_PYTHON_ROOTS = ("src/", "tools/", "tests/", "benchmarks/")
 TYPED_PYTHON_FILES = frozenset({"conftest.py"})
 
 
@@ -65,6 +65,12 @@ SURFACES: tuple[Surface, ...] = (
     Surface("tools", ("tools/*.py",), ("ruff", "mypy", "tests+coverage", "codeql")),
     Surface("tests", ("tests/*.py", "tests/data/*.json"), ("ruff", "mypy", "pytest")),
     Surface("pytest-config", ("conftest.py",), ("ruff", "mypy")),
+    Surface("benchmarks", ("benchmarks/*.py",), ("ruff", "mypy")),
+    Surface(
+        "benchmark-results",
+        ("benchmarks/results/*.local.json",),
+        ("reuse",),
+    ),
     Surface(
         "header-generator",
         ("docs/assets/generate_header.py",),

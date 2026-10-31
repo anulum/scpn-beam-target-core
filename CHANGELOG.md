@@ -36,6 +36,12 @@ SCPN Beam Target Core — CHANGELOG
 
 ### Added
 
+- Level-0 physics benchmark (`benchmarks/level0_physics.py`) after the
+  ecosystem standard, with a committed local smoke artefact, and
+  `docs/benchmarks.md` stating the computation contract of every kernel and
+  the backend status (Python floor only; the native row is reported as
+  unavailable). `benchmarks/` joins the strictly typed cohort in CI, Make,
+  pre-commit and preflight.
 - `tools/check_commit_trailers.py --audit-range REV_RANGE` checks the
   messages of existing commits read-only with the commit-msg rules; exit `2`
   when the range cannot be read.

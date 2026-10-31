@@ -17,9 +17,9 @@ followed by the evidence record of each implemented capability.
 
 | Gate | Command | Scope |
 |---|---|---|
-| Lint | `ruff check .` | all Python under `src/`, `tools/`, and `tests/` |
+| Lint | `ruff check .` | all Python under `src/`, `tools/`, `tests/` and `benchmarks/` |
 | Format | `ruff format --check .` | same scope |
-| Typing | `mypy --strict src tools tests conftest.py` | zero errors, strict mode |
+| Typing | `mypy --strict src tools tests benchmarks conftest.py` | zero errors, strict mode |
 | Tests + coverage | `pytest -q --cov=src --cov=tools --cov-branch --cov-fail-under=100` | 100 % statement and branch coverage of `src/` and `tools/` |
 | Domain manifest | `python3 tools/validate_reactor_domain.py reactor-domain.json` | schema, registry version/digest, exact configuration set, capability inventory shape and ceiling rule, safety boundary |
 | Studio descriptor | `python3 tools/derive_studio_descriptor.py --check` | committed descriptor byte-identical to a fresh derivation |

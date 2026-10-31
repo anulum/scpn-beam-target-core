@@ -24,6 +24,7 @@ path = [
     "docs/assets/repo_header_line_invariant.png",
     "docs/assets/repo_header_energy_window.png",
     ".github/FUNDING.yml",
+    "benchmarks/results/level0_physics.local.json",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = [

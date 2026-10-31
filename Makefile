@@ -42,7 +42,7 @@ lint:
 	$(VENV)/ruff format --check .
 
 typecheck:
-	$(VENV)/mypy --strict src tools tests conftest.py
+	$(VENV)/mypy --strict src tools tests benchmarks conftest.py
 
 test:
 	$(VENV)/pytest -q --cov=src --cov=tools --cov-branch --cov-fail-under=100
