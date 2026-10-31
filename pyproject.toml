@@ -158,6 +158,13 @@ max-statements = 54
 # the preflight tests build throwaway Git repositories with a fixed `git`
 # vector resolved through shutil.which, without a shell (scope of S603)
 "tests/test_preflight.py" = ["S603"]
+# the trailer range tests build a throwaway Git repository with a fixed `git`
+# vector and an absolute path from shutil.which, without a shell (S603)
+"tests/test_check_commit_trailers.py" = ["S603"]
+# the trailer range audit runs fixed read-only `git rev-list` / `git show`
+# vectors resolved through shutil.which, without a shell; a range starting
+# with "-" is refused before git sees it (scope of S603)
+"tools/check_commit_trailers.py" = ["S603"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
