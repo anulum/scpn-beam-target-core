@@ -31,6 +31,7 @@ from dataclasses import dataclass
 from typing import Any, Final
 
 from scpn_beam_target_core.configuration import DeviceConfiguration
+from scpn_beam_target_core.errors import DeviceConfigurationError
 from scpn_beam_target_core.physics.beam import (
     beam_power_w,
     ion_rate_per_s,
@@ -43,7 +44,10 @@ from scpn_beam_target_core.physics.cross_section import (
 )
 
 LEVEL0_SCHEMA: Final = "scpn.beam-target-level0-physics.v1"
-LEVEL0_SCHEMA_VERSION: Final = "1.0.0"
+LEVEL0_SCHEMA_VERSION: Final = "1.1.0"
+"""Version 1.1.0 carries the declared inputs, so a record replays from the
+configuration document and itself alone (version 1.0.0 lacked the charge
+number)."""
 EQUAL_MASS_LAB_ENERGY_RATIO: Final = 2.0
 """Lab energy per unit centre-of-mass energy under the equal-mass
 approximation the device configuration makes."""
@@ -113,6 +117,16 @@ class BeamInputs:
         """
         require_reaction(self.reaction)
         require_charge_number(self.charge_number)
+
+    def to_record(self) -> dict[str, Any]:
+        """Project the declared inputs to a JSON-serialisable record.
+
+        Returns
+        -------
+        dict[str, Any]
+            The reaction key and the integer charge number.
+        """
+        return {"reaction": self.reaction, "charge_number": self.charge_number}
 
 
 @dataclass(frozen=True, slots=True)
@@ -200,11 +214,15 @@ class Level0Physics:
     ----------
     configuration_digest_sha256
         Digest of the configuration the record was built from.
+    inputs
+        The declared inputs the record was evaluated at; with the
+        configuration they are everything :func:`level0_physics` consumes.
     operating_point
         The composed operating point.
     """
 
     configuration_digest_sha256: str
+    inputs: BeamInputs
     operating_point: OperatingPoint
 
     def to_record(self) -> dict[str, Any]:
@@ -219,6 +237,7 @@ class Level0Physics:
             "schema": LEVEL0_SCHEMA,
             "schema_version": LEVEL0_SCHEMA_VERSION,
             "configuration_digest_sha256": self.configuration_digest_sha256,
+            "inputs": self.inputs.to_record(),
             "operating_point": self.operating_point.to_record(),
             "non_claims": list(LEVEL0_NON_CLAIMS),
         }
@@ -279,6 +298,7 @@ def level0_physics(
     rate = ion_rate_per_s(beam.beam_current_ma, inputs.charge_number)
     return Level0Physics(
         configuration_digest_sha256=configuration.digest_sha256(),
+        inputs=inputs,
         operating_point=OperatingPoint(
             reaction=inputs.reaction,
             centre_of_mass_energy_kev=centre_of_mass,
@@ -300,3 +320,158 @@ def level0_physics(
             deuterium_tritium_lab_energy_ratio=DT_LAB_ENERGY_RATIO,
         ),
     )
+
+
+RECORD_FIELDS: Final = frozenset(
+    {
+        "schema",
+        "schema_version",
+        "configuration_digest_sha256",
+        "inputs",
+        "operating_point",
+        "non_claims",
+    }
+)
+"""Exact top-level member set of a level-0 record."""
+
+INPUT_FIELDS: Final = frozenset({"reaction", "charge_number"})
+"""Exact member set of the declared-inputs block."""
+
+
+def beam_inputs_from_record(record: Any) -> BeamInputs:
+    """Rebuild the declared inputs from their record.
+
+    Parameters
+    ----------
+    record
+        The ``inputs`` member of a level-0 record.
+
+    Returns
+    -------
+    BeamInputs
+        The validated inputs.
+
+    Raises
+    ------
+    DeviceConfigurationError
+        If the record is not an object with exactly the input members, the
+        reaction is not a known key, or the charge number is not a
+        strictly positive integer.
+    """
+    if not isinstance(record, dict) or set(record) != INPUT_FIELDS:
+        raise DeviceConfigurationError(
+            f"inputs: must be an object with exactly {sorted(INPUT_FIELDS)!r}"
+        )
+    reaction = record["reaction"]
+    if not isinstance(reaction, str):
+        raise DeviceConfigurationError(f"reaction: must be a string, got {reaction!r}")
+    return BeamInputs(reaction=reaction, charge_number=record["charge_number"])
+
+
+def _reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    """Assemble one JSON object, refusing a repeated member.
+
+    Parameters
+    ----------
+    pairs
+        Member pairs in document order.
+
+    Returns
+    -------
+    dict[str, Any]
+        The object.
+
+    Raises
+    ------
+    DeviceConfigurationError
+        If a member name occurs twice.
+    """
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise DeviceConfigurationError(f"record: duplicate member {key!r}")
+        result[key] = value
+    return result
+
+
+def _reject_constant(literal: str) -> float:
+    """Refuse the non-finite literals JSON does not define.
+
+    Parameters
+    ----------
+    literal
+        ``NaN``, ``Infinity`` or ``-Infinity``.
+
+    Returns
+    -------
+    float
+        Never returns.
+
+    Raises
+    ------
+    DeviceConfigurationError
+        Always.
+    """
+    raise DeviceConfigurationError(f"record: non-finite JSON literal {literal!r}")
+
+
+def replay_level0(configuration: DeviceConfiguration, data: bytes) -> Level0Physics:
+    """Recompute a level-0 record and require it to reproduce byte for byte.
+
+    The configuration is supplied by its owner (its own document decodes
+    through :func:`~scpn_beam_target_core.configuration.configuration_from_bytes`);
+    the record names it by digest and carries the declared inputs, so
+    nothing else is needed.
+
+    Parameters
+    ----------
+    configuration
+        The configuration the record claims to be built from.
+    data
+        Canonical bytes of a level-0 record.
+
+    Returns
+    -------
+    Level0Physics
+        The recomputed record, identical to ``data``.
+
+    Raises
+    ------
+    DeviceConfigurationError
+        If the bytes are not a JSON object with exactly the record members,
+        the schema or its version is not this module's, the configuration
+        digest is not the supplied configuration's, the inputs do not
+        validate, or the recomputed record differs from ``data``.
+    """
+    try:
+        record = json.loads(
+            data.decode("utf-8"),
+            parse_constant=_reject_constant,
+            object_pairs_hook=_reject_duplicates,
+        )
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise DeviceConfigurationError(f"record: invalid JSON document: {exc}") from exc
+    except RecursionError as exc:
+        raise DeviceConfigurationError("record: JSON nesting is too deep") from exc
+    if not isinstance(record, dict) or set(record) != RECORD_FIELDS:
+        raise DeviceConfigurationError(
+            f"record: must be an object with exactly {sorted(RECORD_FIELDS)!r}"
+        )
+    if record["schema"] != LEVEL0_SCHEMA:
+        raise DeviceConfigurationError(f"schema: unknown {record['schema']!r}")
+    if record["schema_version"] != LEVEL0_SCHEMA_VERSION:
+        raise DeviceConfigurationError(
+            f"schema_version: {record['schema_version']!r} is not "
+            f"{LEVEL0_SCHEMA_VERSION!r}"
+        )
+    if record["configuration_digest_sha256"] != configuration.digest_sha256():
+        raise DeviceConfigurationError(
+            "configuration_digest_sha256: the record was built from another "
+            "configuration"
+        )
+    rebuilt = level0_physics(configuration, beam_inputs_from_record(record["inputs"]))
+    if rebuilt.canonical_bytes() != data:
+        raise DeviceConfigurationError(
+            "record: does not reproduce from its configuration and inputs"
+        )
+    return rebuilt

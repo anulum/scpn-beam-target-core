@@ -86,10 +86,12 @@ from scpn_beam_target_core.physics import (
     BeamInputs,
     Level0Physics,
     OperatingPoint,
+    beam_inputs_from_record,
     beam_power_w,
     ion_rate_per_s,
     level0_physics,
     maxwellian_reactivity_cm3_per_s,
+    replay_level0,
     total_cross_section_barn,
 )
 from scpn_beam_target_core.plan_envelope import (
@@ -149,6 +151,7 @@ __all__ = [
     "SemanticCarrier",
     "TargetAssembly",
     "__version__",
+    "beam_inputs_from_record",
     "beam_power_w",
     "beamline_from_record",
     "build_device_cad",
@@ -163,6 +166,7 @@ __all__ = [
     "maxwellian_reactivity_cm3_per_s",
     "plan_from_bytes",
     "plan_from_record",
+    "replay_level0",
     "target_from_record",
     "total_cross_section_barn",
     "verify_envelope",

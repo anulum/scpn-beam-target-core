@@ -252,6 +252,13 @@ What is exercised, all under the 100 % statement-and-branch coverage gate:
   positive above.
 - Canonical serialisation with a SHA-256 digest, its idempotence under
   re-canonicalisation, and its movement under a changed configuration.
+- Replay from custody (schema `1.1.0`): the record carries the
+  configuration digest and the declared inputs (reaction and charge
+  number), so `replay_level0` rebuilds it byte for byte from the
+  configuration document and the record alone, for both configurations
+  and two charge states. Another schema or version, another
+  configuration, edited inputs or outputs, a non-canonical spelling and
+  malformed documents are each refused with the family error.
 
 Anchors — a cross-check inside one filed document. The formulary tabulates
 the Duane coefficients and, below them on page 45, a table of

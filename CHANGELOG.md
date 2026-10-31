@@ -50,6 +50,15 @@ SCPN Beam Target Core — CHANGELOG
 
 ### Changed
 
+- **Level-0 record schema `1.1.0`** (`scpn.beam-target-level0-physics.v1`):
+  the record carries its declared inputs (reaction and charge number), so
+  it replays from the configuration document and itself alone.
+  `beam_inputs_from_record` and `replay_level0` are new public functions;
+  `replay_level0` refuses another schema or version, another configuration
+  and any record that does not recompute to the same bytes. The bytes and
+  digest of every level-0 record change; 1.0.0 records are refused, not
+  upgraded (ADR 0005 addendum).
+
 - The formulary citations name the right page: the Duane coefficients and
   the thermal-average table are on page 45, not 44 (the fit and the mass
   ratios are on 44). The claim that averaging verifies all six coefficient

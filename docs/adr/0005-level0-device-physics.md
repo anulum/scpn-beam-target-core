@@ -108,3 +108,25 @@ orders of magnitude. The boundary is tested from both sides.
 
 The record models no beam stopping, target density or thickness, so no
 reaction rate, yield or gain follows from it, and the non-claims say so.
+
+## Addendum 2026-10-31: replayable records (schema 1.1.0)
+
+Audit plan D03 asked whether a record names everything needed to rebuild
+it. It did not: `level0_physics` consumes the configuration and the
+declared inputs, and the 1.0.0 record carried the configuration digest
+and the reaction but not the charge number, so a record for a doubly
+charged beam could not be told from a hidden caller choice.
+
+The record is now schema `1.1.0` with an `inputs` block (reaction and
+integer charge number). The configuration stays in its own custody,
+named by digest. `beam_inputs_from_record` decodes the block, and
+`replay_level0(configuration, data)` refuses another schema or version,
+another configuration digest, and any record that does not recompute to
+the same bytes. The operating point keeps its own `reaction` member as an
+intentionally redundant output.
+
+Every record's bytes and digest change with this version. No committed
+fixture pinned a level-0 digest, and no other repository consumes the
+record; a consumer holding 1.0.0 records must regenerate them, because
+`replay_level0` refuses 1.0.0 rather than guessing the missing charge
+number.

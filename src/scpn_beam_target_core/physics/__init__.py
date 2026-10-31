@@ -41,7 +41,9 @@ from scpn_beam_target_core.physics.level0 import (
     BeamInputs,
     Level0Physics,
     OperatingPoint,
+    beam_inputs_from_record,
     level0_physics,
+    replay_level0,
 )
 
 __all__ = [
@@ -57,10 +59,12 @@ __all__ = [
     "BeamInputs",
     "Level0Physics",
     "OperatingPoint",
+    "beam_inputs_from_record",
     "beam_power_w",
     "ion_rate_per_s",
     "level0_physics",
     "maxwellian_reactivity_cm3_per_s",
+    "replay_level0",
     "require_charge_number",
     "require_reaction",
     "total_cross_section_barn",
