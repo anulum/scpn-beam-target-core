@@ -29,7 +29,8 @@ owns: `beam.rf_bunch_phase` (direct cyclic), `beam.target_outcome`
 ## Decision
 
 1. The capability `diagnostic_clock_semantics` is implemented as a
-   declaration model (`src/scpn_beam_target_core/observability.py`):
+   declaration model (`src/scpn_beam_target_core/observability/`, one module per
+   responsibility behind the package facade):
    frozen `ClockModel`, `DiagnosticChannelPlan`, `DeferredCandidate`,
    and `DiagnosticPlan` objects with fail-closed invariants, an
    advisory-only consistency report, canonical serialisation with

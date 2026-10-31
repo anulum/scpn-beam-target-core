@@ -39,6 +39,12 @@ SCPN Beam Target Core — CHANGELOG
 
 ### Changed
 
+- `scpn_beam_target_core.observability` is now a package with one module
+  per responsibility — vocabulary, catalogue binding, frames, clocks, signals
+  and channels, plan composition, record parsing — behind the unchanged
+  public import path. The 33 public names, canonical plan bytes and refusal
+  behaviour are unchanged.
+
 - The documentation gate reads only files git would publish, so a
   git-ignored private tree is never link-checked (it failed the gate locally
   while passing in CI, where that tree is absent). Hooks without their own
