@@ -25,6 +25,11 @@ SCPN Beam Target Core — CHANGELOG
 
 ### Changed
 
+- The documentation gate reads only files git would publish, so a
+  git-ignored private tree is never link-checked (it failed the gate locally
+  while passing in CI, where that tree is absent). Hooks without their own
+  stage list run before a commit and before a push only; commit-msg runs the
+  trailer guard alone.
 - Local and hosted gates check the same cohorts: `make typecheck` now checks
   `src/` as CI does, `make test` measures `src/` as CI does, `conftest.py`
   joins the typed cohort everywhere, and `make validate` runs the workflow

@@ -155,6 +155,9 @@ max-statements = 54
 # vector resolved through shutil.which, without a shell or untrusted input
 # (scope of S603)
 "tests/test_surface_enrollment.py" = ["S603"]
+# the preflight tests build throwaway Git repositories with a fixed `git`
+# vector resolved through shutil.which, without a shell (scope of S603)
+"tests/test_preflight.py" = ["S603"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
