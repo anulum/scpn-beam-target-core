@@ -17,6 +17,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+from typing import Any
 
 import pytest
 
@@ -293,12 +294,12 @@ def test_the_digest_moves_with_every_input_of_the_build() -> None:
 
 
 @pytest.mark.parametrize("segments", [True, 32.0], ids=["bool", "integral-float"])
-def test_a_segment_count_that_is_not_an_integer_is_refused(segments: object) -> None:
+def test_a_segment_count_that_is_not_an_integer_is_refused(segments: Any) -> None:
     """A float count that the kernel's own guard lets through is refused here."""
     with pytest.raises(DeviceGeometryError, match="segments: must be an integer"):
         build_device_model(
             synthetic_configuration(),
             reference_beamline(),
-            segments,  # type: ignore[arg-type]
+            segments,
             reference_target(),
         )

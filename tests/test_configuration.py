@@ -233,7 +233,7 @@ def test_configuration_from_bytes_rejects_another_spelling_of_a_value() -> None:
 
 @pytest.mark.parametrize("count", [True, 1.0], ids=["bool", "integral-float"])
 def test_constructor_refuses_a_beam_line_count_that_is_not_an_integer(
-    count: object,
+    count: Any,
 ) -> None:
     """The constructor holds the integer contract the record decoder holds."""
     with pytest.raises(
@@ -242,6 +242,6 @@ def test_constructor_refuses_a_beam_line_count_that_is_not_an_integer(
         DeviceConfiguration(
             identifier="beam_target",
             beam=synthetic_configuration().beam,
-            beam_line_count=count,  # type: ignore[arg-type]
+            beam_line_count=count,
             registry=synthetic_configuration().registry,
         )

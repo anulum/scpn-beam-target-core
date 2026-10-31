@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from typing import Any
 
 import pytest
 
@@ -208,8 +209,8 @@ def test_the_digest_identifies_the_record() -> None:
 
 @pytest.mark.parametrize("charge", [True, 1.0, 1.5], ids=["bool", "float", "fraction"])
 def test_beam_inputs_refuse_a_charge_number_that_is_not_an_integer(
-    charge: object,
+    charge: Any,
 ) -> None:
     """The level-0 input dataclass applies the same integer contract."""
     with pytest.raises(DeviceConfigurationError, match="charge_number: must be an int"):
-        BeamInputs(reaction="d_t", charge_number=charge)  # type: ignore[arg-type]
+        BeamInputs(reaction="d_t", charge_number=charge)

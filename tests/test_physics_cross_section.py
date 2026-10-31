@@ -16,6 +16,7 @@ averages, and averaging the fit reproduces the table.
 from __future__ import annotations
 
 import math
+from typing import Any
 
 import pytest
 
@@ -281,13 +282,13 @@ def test_constants_are_the_documented_formulary_editions() -> None:
     [True, 2000.0, 10.5, math.nan, math.inf],
     ids=["bool", "integral-float", "fraction", "nan", "inf"],
 )
-def test_a_sample_count_that_is_not_an_integer_is_refused(samples: object) -> None:
+def test_a_sample_count_that_is_not_an_integer_is_refused(samples: Any) -> None:
     """The quadrature count is refused with the family error, not a TypeError."""
     with pytest.raises(DeviceConfigurationError, match="samples: must be an integer"):
         maxwellian_reactivity_cm3_per_s(
             "d_t",
             10.0,
-            samples=samples,  # type: ignore[arg-type]
+            samples=samples,
         )
 
 

@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import math
+from typing import Any
 
 import pytest
 
@@ -111,18 +112,18 @@ def test_the_beam_power_agrees_with_the_ion_rate_times_the_energy() -> None:
     [True, False, 1.0, 1.5, math.nan, math.inf, "1"],
     ids=["true", "false", "integral-float", "fraction", "nan", "inf", "string"],
 )
-def test_a_charge_number_that_is_not_an_integer_is_refused(charge: object) -> None:
+def test_a_charge_number_that_is_not_an_integer_is_refused(charge: Any) -> None:
     """A charge state counts elementary charges; it is never rounded.
 
     Booleans are refused although Python counts them as integers, and so
     is an integral float: the guard runs before any computation.
     """
     with pytest.raises(DeviceConfigurationError, match="charge_number: must be an int"):
-        require_charge_number(charge)  # type: ignore[arg-type]
+        require_charge_number(charge)
     with pytest.raises(DeviceConfigurationError, match="charge_number: must be an int"):
-        ion_rate_per_s(50.0, charge)  # type: ignore[arg-type]
+        ion_rate_per_s(50.0, charge)
     with pytest.raises(DeviceConfigurationError, match="charge_number: must be an int"):
-        beam_power_w(120.0, 50.0, charge)  # type: ignore[arg-type]
+        beam_power_w(120.0, 50.0, charge)
 
 
 @pytest.mark.parametrize("charge", [0, -1])
