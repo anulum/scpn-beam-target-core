@@ -30,8 +30,9 @@ content of it.
 
 The two cited works for the cross section — Bosch and Hale, and Wangler —
 are both paywalled and neither is on file. The 2019 NRL Plasma Formulary
-is, and on page 44 it prints the Duane fit, the coefficients for six
-reactions, the ion mass ratios, and a table of thermal averages.
+is: on page 44 it prints the Duane fit and the ion mass ratios, and on
+page 45 the coefficients for six reactions and a table of thermal
+averages.
 
 ## Decision
 
@@ -63,12 +64,17 @@ computation closes inside a single source.
 
 ## Anchoring: a cross-check inside one document
 
-The formulary prints the Duane coefficients and, further down the same
-page, a table of Maxwellian-averaged D-T reaction rates. One implies the
+The formulary tabulates the Duane coefficients and, below them on page 45,
+a table of Maxwellian-averaged D-T reaction rates. One implies the
 other. So the thermal average is implemented here for a single purpose:
-it verifies that six coefficient tuples were transcribed correctly from a
-scanned page, and it does so against ten printed values spanning three
-decades of temperature and five of reactivity.
+it verifies that the D-T coefficient tuple was transcribed correctly from
+a scanned page, and it does so against ten printed values spanning three
+decades of temperature and five of reactivity. The D-D column (both
+branches together) and the T-T column are recovered the same way from
+the printed deuteron and triton masses (added 2026-10-31), so four of
+the six tuples are verified by the document itself; the D-He3 and T-He3
+tuples are transcriptions read against the rendered page, because no
+helium-3 mass is on file.
 
 **All ten are recovered at the precision they are printed to.** Each
 computed value rounds to the printed two significant figures exactly.

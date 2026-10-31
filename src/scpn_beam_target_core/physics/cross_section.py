@@ -9,18 +9,22 @@
 """Total fusion cross sections of the light-ion reactions, and their average.
 
 The cross section is the Duane fit the 2019 NRL Plasma Formulary prints
-on page 44, together with the coefficients it tabulates there for the six
+on page 44, with the coefficients it tabulates on page 45 for the six
 principal reactions. Its energy argument is the energy of the incident
 ion **with the target ion at rest**, which is the geometry this
 repository's device family is named for.
 
 The thermal average exists here for one reason: it is what verifies the
-transcription. The formulary prints the Duane coefficients and, further
-down the same page, a table of Maxwellian-averaged reaction rates. One
+transcription. The formulary tabulates the Duane coefficients and, below
+them on page 45, a table of Maxwellian-averaged reaction rates. One
 implies the other, so averaging the fit reproduces the table — and does,
 at the precision the table is printed to, for every one of its ten D-T
-entries. It is a verification instrument, not a relation of the
-beam-target family.
+entries. The D-D (both branches together) and T-T columns are recovered
+the same way with the equal-mass reduced mass and lab ratio, so four of
+the six tuples are verified by the document itself; the D-He3 and T-He3
+tuples are transcriptions read against the rendered page, because no
+helium-3 mass is on file. It is a verification instrument, not a relation
+of the beam-target family.
 """
 
 from __future__ import annotations
@@ -38,7 +42,7 @@ DUANE_COEFFICIENTS: Final[dict[str, tuple[float, float, float, float, float]]] =
     "t_t": (38.39, 448.0, 1.02e-3, 2.09, 0.0),
     "t_he3": (123.1, 11250.0, 0.0, 0.0, 0.0),
 }
-"""Coefficients A1 to A5 of the Duane fit, page 44. The two deuterium
+"""Coefficients A1 to A5 of the Duane fit, page 45. The two deuterium
 branches are named for the heavy product that distinguishes them: the
 tritium branch is the formulary's reaction 1a and the helium-3 branch its
 reaction 1b."""

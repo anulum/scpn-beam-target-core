@@ -39,6 +39,14 @@ SCPN Beam Target Core — CHANGELOG
 
 ### Changed
 
+- The formulary citations name the right page: the Duane coefficients and
+  the thermal-average table are on page 45, not 44 (the fit and the mass
+  ratios are on 44). The claim that averaging verifies all six coefficient
+  tuples is corrected: it verified D-T only. Two new anchors recover the
+  printed D-D (both branches) and T-T columns, so four tuples are now
+  verified by the document; D-He3 and T-He3 remain transcriptions. No value
+  changes.
+
 - The physical constants in `physics/cross_section.py` name their edition:
   the five-figure CODATA 1986 values the 2019 NRL Plasma Formulary prints
   (p. 14) and the three-figure mass ratios of its p. 44, each with its

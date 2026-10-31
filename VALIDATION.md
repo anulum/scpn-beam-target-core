@@ -225,7 +225,7 @@ What is exercised, all under the 100 % statement-and-branch coverage gate:
 
 - The Duane total cross section of the six principal light-ion reactions,
   with the coefficients the 2019 NRL Plasma Formulary tabulates on
-  page 44. Its energy argument is the incident-ion energy with the target
+  page 45 (the fit itself is printed on page 44). Its energy argument is the incident-ion energy with the target
   at rest, which is the frame the fit was made in.
 - The record evaluating that fit at the **equivalent stationary-target
   energy** rather than at the declared beam energy, and carrying both.
@@ -253,15 +253,20 @@ What is exercised, all under the 100 % statement-and-branch coverage gate:
 - Canonical serialisation with a SHA-256 digest, its idempotence under
   re-canonicalisation, and its movement under a changed configuration.
 
-Anchors — a cross-check inside one filed document. The formulary prints
-the Duane coefficients and, further down the same page, a table of
+Anchors — a cross-check inside one filed document. The formulary tabulates
+the Duane coefficients and, below them on page 45, a table of
 Maxwellian-averaged D-T reaction rates; one implies the other, so
-averaging the fit verifies the transcription of all six coefficient
-tuples.
+averaging the fit verifies the transcription of the D-T coefficient
+tuple. The D-D column (both branches together) and the T-T column are
+recovered the same way from the printed deuteron and triton masses, so
+four of the six tuples are verified by the document; the D-He3 and T-He3
+tuples are transcriptions read against the rendered page, because no
+helium-3 mass is on file.
 
 | Printed | Where | Recovered |
 |---|---|---|
-| ten D-T reaction rates, 1 keV to 1000 keV | page 44 table | every one, rounding to the printed two significant figures |
+| ten D-T reaction rates, 1 keV to 1000 keV | page 45 table | every one, rounding to the printed two significant figures |
+| ten D-D (1a + 1b) and ten T-T reaction rates | page 45 table | every one, the same way, with reduced mass m/2 and lab ratio 2 |
 | `m_e/m_D` as `2.72e-4` and as `1/3670` | page 44 | each recovers the other |
 | `m_e/m_T` as `1.82e-4` and as `1/5496` | page 44 | each recovers the other |
 | the printed square roots `1.65e-2 = 1/60.6` and `1.35e-2 = 1/74.1` | page 44 | both, from the ratios |

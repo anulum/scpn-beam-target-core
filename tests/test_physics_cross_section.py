@@ -20,21 +20,25 @@ import math
 import pytest
 
 from physics_fixtures import (
+    PRINTED_DD_REACTIVITY_CM3_PER_S,
     PRINTED_DT_REACTIVITY_CM3_PER_S,
     PRINTED_MASS_RATIO_PAIRS,
     PRINTED_MASS_RATIO_ROOTS,
     PRINTED_SIGNIFICANT_FIGURES,
+    PRINTED_TT_REACTIVITY_CM3_PER_S,
     round_to_significant_figures,
 )
 from scpn_beam_target_core.errors import DeviceConfigurationError
 from scpn_beam_target_core.physics.cross_section import (
     DEFAULT_QUADRATURE_SAMPLES,
+    DEUTERON_MASS_KG,
     DT_LAB_ENERGY_RATIO,
     DT_REDUCED_MASS_KG,
     DUANE_COEFFICIENTS,
     ELECTRON_DEUTERON_MASS_RATIO,
     ELECTRON_TRITON_MASS_RATIO,
     REACTIONS,
+    TRITON_MASS_KG,
     maxwellian_reactivity_cm3_per_s,
     require_positive,
     require_reaction,
@@ -109,10 +113,10 @@ def test_the_cross_section_rises_and_falls_around_one_resonance() -> None:
 def test_every_printed_thermal_average_is_recovered_at_its_printed_precision() -> None:
     """Averaging the printed fit reproduces the printed table exactly.
 
-    The formulary prints the Duane coefficients and, further down page 44,
-    a table of Maxwellian-averaged D-T rates. One implies the other, so
+    The formulary tabulates the Duane coefficients and, below them on page
+    45, a table of Maxwellian-averaged D-T rates. One implies the other, so
     this is a cross-check inside a single document and it verifies both
-    the transcription of six coefficients and the average itself.
+    the transcription of the five D-T coefficients and the average itself.
 
     Every one of the ten entries is recovered, and each computed value
     rounds to the printed one at the two significant figures the table
@@ -121,6 +125,38 @@ def test_every_printed_thermal_average_is_recovered_at_its_printed_precision() -
     """
     for temperature, printed in PRINTED_DT_REACTIVITY_CM3_PER_S:
         computed = maxwellian_reactivity_cm3_per_s("d_t", temperature)
+        assert round_to_significant_figures(
+            computed, PRINTED_SIGNIFICANT_FIGURES
+        ) == pytest.approx(printed, rel=1e-9)
+
+
+@pytest.mark.parametrize(
+    ("reactions", "ion_mass_kg", "printed_table"),
+    [
+        (("d_d_t", "d_d_he3"), DEUTERON_MASS_KG, PRINTED_DD_REACTIVITY_CM3_PER_S),
+        (("t_t",), TRITON_MASS_KG, PRINTED_TT_REACTIVITY_CM3_PER_S),
+    ],
+    ids=["d-d-both-branches", "t-t"],
+)
+def test_equal_mass_averages_recover_their_printed_columns(
+    reactions: tuple[str, ...],
+    ion_mass_kg: float,
+    printed_table: tuple[tuple[float, float], ...],
+) -> None:
+    """The D-D and T-T columns of page 45 verify three more coefficient tuples.
+
+    Identical ions have reduced mass m/2 and lab-to-centre-of-mass ratio 2,
+    from masses the formulary prints, so these averages need no constant
+    from outside the document. The D-D column is headed 1a + 1b and is
+    checked as the sum of the two branches.
+    """
+    for temperature, printed in printed_table:
+        computed = sum(
+            maxwellian_reactivity_cm3_per_s(
+                reaction, temperature, ion_mass_kg / 2.0, 2.0
+            )
+            for reaction in reactions
+        )
         assert round_to_significant_figures(
             computed, PRINTED_SIGNIFICANT_FIGURES
         ) == pytest.approx(printed, rel=1e-9)

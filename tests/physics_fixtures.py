@@ -9,7 +9,7 @@
 """Fixtures shared by the level-0 physics tests.
 
 The reference fixtures are synthetic and describe nothing. The anchor
-data is transcribed from the 2019 NRL Plasma Formulary, page 44, and
+data is transcribed from the 2019 NRL Plasma Formulary, pages 44 and 45, and
 exists so the tests can show each printed value is recoverable from the
 built relations rather than merely stored beside them.
 """
@@ -37,9 +37,38 @@ PRINTED_DT_REACTIVITY_CM3_PER_S: Final = (
     (500.0, 3.7e-16),
     (1000.0, 2.7e-16),
 )
-"""Maxwellian-averaged D-T reaction rates, page 44, temperature in keV
+"""Maxwellian-averaged D-T reaction rates, page 45, temperature in keV
 against rate in cubic centimetres per second. Every entry is printed to
 two significant figures."""
+
+PRINTED_DD_REACTIVITY_CM3_PER_S: Final = (
+    (1.0, 1.5e-22),
+    (2.0, 5.4e-21),
+    (5.0, 1.8e-19),
+    (10.0, 1.2e-18),
+    (20.0, 5.2e-18),
+    (50.0, 2.1e-17),
+    (100.0, 4.5e-17),
+    (200.0, 8.8e-17),
+    (500.0, 1.8e-16),
+    (1000.0, 2.2e-16),
+)
+"""Maxwellian-averaged D-D reaction rates, page 45, both branches (1a + 1b)
+together, as the column is headed."""
+
+PRINTED_TT_REACTIVITY_CM3_PER_S: Final = (
+    (1.0, 3.3e-22),
+    (2.0, 7.1e-21),
+    (5.0, 1.4e-19),
+    (10.0, 7.2e-19),
+    (20.0, 2.5e-18),
+    (50.0, 8.7e-18),
+    (100.0, 1.9e-17),
+    (200.0, 4.2e-17),
+    (500.0, 8.4e-17),
+    (1000.0, 8.0e-17),
+)
+"""Maxwellian-averaged T-T reaction rates, page 45."""
 
 PRINTED_MASS_RATIO_PAIRS: Final = (
     ("m_e/m_D", 2.72e-4, 3670.0),
