@@ -15,12 +15,18 @@ SCPN Beam Target Core — Architecture
 `SCPN-BEAM-TARGET-CORE` is the device-family owner for beam-target and
 colliding-beam fusion systems in the SCPN Reactor Systems Research Group
 portfolio. The
-repository owns two implemented capabilities at
+repository owns five implemented capabilities at
 `computational_prototype` in `src/scpn_beam_target_core/`: the device
 configuration model (design record ADR 0002, evidence record
-`VALIDATION.md#device-configuration-model`) and the diagnostic and
+`VALIDATION.md#device-configuration-model`), the diagnostic and
 clock semantics model (design record ADR 0003, evidence record
-`VALIDATION.md#diagnostic-and-clock-semantics`). Every other
+`VALIDATION.md#diagnostic-and-clock-semantics`), the level-0 device
+physics (design record ADR 0005, evidence record
+`VALIDATION.md#level-0-device-physics`) and the device 3D and CAD models
+(design record ADR 0006, contract `docs/DEVICE_3D_MODEL_CONTRACT.md`,
+evidence records `VALIDATION.md#device-3d-model` and
+`VALIDATION.md#device-cad-model`, built on the kernel library pinned in
+`reactor-domain.json`). Every other
 section below describes boundaries and contracts. The claim inventory is
 empty; capability and claim inventories are generated and drift-checked.
 
@@ -82,12 +88,14 @@ SCPN-CONTROL ──admitted ControlAction──► independent machine protectio
 |---|---|
 | `reactor-domain.json` | portable source of project identity and contracts |
 | `studio/portfolio-descriptor.json` | derived Studio descriptor, `not_federated` |
-| `capability-inventory.json` | generated, truthfully empty inventory |
+| `capability-inventory.json` | generated inventory of the five implemented capabilities |
+| `src/scpn_beam_target_core/` | the package: configuration, observability, plan envelope, level-0 physics and the device geometry tiers |
+| `docs/DEVICE_3D_MODEL_CONTRACT.md` | producer-owned contract of the device models and their STEP digest |
 | `docs/CONTROL_ADAPTER_SPECIFICATION.md` | device-owned adapter contract |
 | `docs/THREAT_MODEL.md` | assets, trust boundaries, misuse paths |
 | `docs/adr/0001-repository-boundary.md` | boundary decision record |
 | `tools/` | validators, derivation tools, preflight orchestrator |
-| `tests/` | statement- and branch-complete tests for `tools/` |
+| `tests/` | statement- and branch-complete tests for `src/` and `tools/` |
 | `.github/workflows/` | read-only CI definitions (no publication) |
 
 ## Contract surfaces and versioning

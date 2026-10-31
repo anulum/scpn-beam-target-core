@@ -14,9 +14,14 @@ title: SCPN Beam Target Core
 abstract: >-
   Governed device-family repository for the beam-target and colliding-beam
   fusion configurations within the SCPN Reactor Systems Research Group.
-  Currently architecture-only: boundary contracts, CONTROL adapter
-  specification, and validation tooling, with no implemented reactor
-  capability.
+  Evidence maturity computational_prototype: a validated device
+  configuration model, diagnostic and clock semantics aligned with the SCPN
+  Phase Orchestrator observability catalogue, level-0 device physics (the
+  published cross-section fit of the light-ion reactions at the energy a
+  declared configuration presents to a target at rest, and what a declared
+  beam current and energy amount to), and tessellated and B-rep models of a
+  beam line and what it fires into. All parameter sets are synthetic; no
+  real machine is described, and the claim inventory is empty.
 authors:
   - family-names: Šotek
     given-names: Miroslav
