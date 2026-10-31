@@ -46,13 +46,21 @@ reaction 1b."""
 REACTIONS: Final = tuple(sorted(DUANE_COEFFICIENTS))
 
 ELECTRON_MASS_KG: Final = 9.1094e-31
-"""Electron mass, formulary constants page."""
+"""Electron mass as the formulary prints it on its SI constants page (p. 14):
+five figures of the CODATA 1986 adjustment that page cites (its reference
+7). It lies 1.8e-6 relative above CODATA 2022 (9.1093837139e-31)."""
 
 ELECTRON_DEUTERON_MASS_RATIO: Final = 2.72e-4
 ELECTRON_TRITON_MASS_RATIO: Final = 1.82e-4
 """Mass ratios printed on page 44 beside the reactions themselves. Taking
 the ion masses from these rather than from a nuclear data table keeps
-every constant in this module inside the one filed document."""
+every constant in this module inside the one filed document. They carry
+three figures, so the masses derived from them are the coarsest constants
+here: against CODATA 2022 the deuteron mass is 1.6e-3 relative high and
+the triton mass 4.4e-4 low, which puts the D-T reduced mass 8.0e-4 and the
+lab-to-centre-of-mass ratio 8.3e-4 above their CODATA values. The page also
+prints 1/3670 and 1/5496 beside them; the three-figure decimals are the
+ones used, and the reactivity table is reproduced with them."""
 
 DEUTERON_MASS_KG: Final = ELECTRON_MASS_KG / ELECTRON_DEUTERON_MASS_RATIO
 TRITON_MASS_KG: Final = ELECTRON_MASS_KG / ELECTRON_TRITON_MASS_RATIO
@@ -66,8 +74,11 @@ configuration uses is an approximation, and for this reaction it is
 visibly wrong."""
 
 ELEMENTARY_CHARGE_C: Final = 1.6022e-19
-"""Elementary charge, formulary constants page; also the joules in a
-kiloelectronvolt scaled by a thousand."""
+"""Elementary charge, formulary SI constants page (p. 14), five figures of the
+same CODATA 1986 adjustment; also the joules in a kiloelectronvolt scaled
+by a thousand. The SI value has been exact since 2019 (1.602176634e-19);
+this one is 1.46e-5 relative above it, and an ion rate computed from it is
+that much low."""
 
 KILOELECTRONVOLT_J: Final = ELEMENTARY_CHARGE_C * 1.0e3
 

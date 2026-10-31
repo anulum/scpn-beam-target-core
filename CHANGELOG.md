@@ -39,6 +39,13 @@ SCPN Beam Target Core — CHANGELOG
 
 ### Changed
 
+- The physical constants in `physics/cross_section.py` name their edition:
+  the five-figure CODATA 1986 values the 2019 NRL Plasma Formulary prints
+  (p. 14) and the three-figure mass ratios of its p. 44, each with its
+  offset from CODATA 2022 and its effect on the derived masses, ion rate and
+  lab-to-centre-of-mass ratio. No value, output or digest changes; a test
+  binds every edition and offset.
+
 - `scpn_beam_target_core.observability` is now a package with one module
   per responsibility — vocabulary, catalogue binding, frames, clocks, signals
   and channels, plan composition, record parsing — behind the unchanged

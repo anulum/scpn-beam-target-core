@@ -204,3 +204,37 @@ def test_the_ion_masses_are_built_from_the_formulary_alone() -> None:
     assert DT_LAB_ENERGY_RATIO < 2.0
     ratio = ELECTRON_TRITON_MASS_RATIO / ELECTRON_DEUTERON_MASS_RATIO
     assert pytest.approx(1.0 + ratio, rel=1e-12) == DT_LAB_ENERGY_RATIO
+
+
+def test_constants_are_the_documented_formulary_editions() -> None:
+    """The formulary's five-figure CODATA 1986 values, with stated offsets.
+
+    The reference values are CODATA 2022 as SciPy 1.17.1 serves them; each
+    offset is the one the module documents.
+    """
+    from scpn_beam_target_core.physics.cross_section import (
+        DEUTERON_MASS_KG,
+        DT_LAB_ENERGY_RATIO,
+        DT_REDUCED_MASS_KG,
+        ELECTRON_DEUTERON_MASS_RATIO,
+        ELECTRON_MASS_KG,
+        ELECTRON_TRITON_MASS_RATIO,
+        ELEMENTARY_CHARGE_C,
+        TRITON_MASS_KG,
+    )
+
+    assert (ELECTRON_MASS_KG, ELEMENTARY_CHARGE_C) == (9.1094e-31, 1.6022e-19)
+    assert (ELECTRON_DEUTERON_MASS_RATIO, ELECTRON_TRITON_MASS_RATIO) == (
+        2.72e-4,
+        1.82e-4,
+    )
+
+    def relative(value: float, reference: float) -> float:
+        return (value - reference) / reference
+
+    assert 1.7e-6 < relative(ELECTRON_MASS_KG, 9.1093837139e-31) < 1.9e-6
+    assert 1.45e-5 < relative(ELEMENTARY_CHARGE_C, 1.602176634e-19) < 1.47e-5
+    assert 1.6e-3 < relative(DEUTERON_MASS_KG, 3.3435837768e-27) < 1.7e-3
+    assert -4.5e-4 < relative(TRITON_MASS_KG, 5.0073567512e-27) < -4.3e-4
+    assert 7.9e-4 < relative(DT_REDUCED_MASS_KG, 2.004866007825828e-27) < 8.1e-4
+    assert 8.2e-4 < relative(DT_LAB_ENERGY_RATIO, 1.6677342843604501) < 8.4e-4
