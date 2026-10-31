@@ -25,6 +25,10 @@ SCPN Beam Target Core — CHANGELOG
 
 ### Added
 
+- README badge block for the evidence this repository has earned: the CI,
+  CodeQL, pre-commit, security-audit and docs workflows on `main`, the
+  AGPL-3.0-or-later licence, the commercial licence route and GitHub
+  Sponsors, bound by a contract test; unearned services stay forbidden.
 - An installed-wheel job in the required CI gate: the wheel is built
   without build isolation from hash-locked `setuptools` and `wheel`
   (`requirements-build.txt`), installed into clean base and CAD environments
