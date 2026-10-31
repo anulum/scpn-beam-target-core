@@ -12,9 +12,9 @@ The derived quantities implement standard two-body kinematics and
 nothing more: the nonrelativistic equal-mass centre-of-mass kinetic
 energy for a stationary target (``E/2``) and for symmetric colliding
 beams (``2E``). Both are rough consistency instruments with documented
-applicability bounds (light-ion cross-section window; H.-S. Bosch,
-G. M. Hale, Nucl. Fusion 32 (1992) 611); no claim about any real
-machine follows from them.
+applicability bounds (the declared light-ion cross-section window, see
+the configuration module); no claim about any real machine follows from
+them.
 """
 
 from __future__ import annotations

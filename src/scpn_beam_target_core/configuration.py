@@ -11,12 +11,15 @@
 A :class:`DeviceConfiguration` composes a validated beam line under
 exactly one of the two registry identifiers this repository owns. The
 beam-line count is a hard class invariant (one for a stationary target,
-two for colliding beams); a centre-of-mass energy outside the documented
-light-ion cross-section window is flagged (Bosch & Hale, NF 32 (1992)
-611). Serialisation is canonical (sorted keys, no NaN or infinity
-accepted anywhere) and the SHA-256 digest of those bytes identifies the
-exact parameter set. The registry binding is a data pin only — this
-package never imports SCPN Phase Orchestrator code.
+two for colliding beams); a centre-of-mass energy outside the declared
+light-ion cross-section window is flagged. The level-0 Duane fit with
+the coefficients of the filed 2019 NRL Plasma Formulary (p. 45) puts the
+D-T cross-section peak at a deuteron energy of about 113 keV, about 68
+keV in the centre-of-mass frame; Bosch & Hale, Nucl. Fusion 32 (1992)
+611, is not on file. Serialisation is canonical (sorted keys, no NaN or
+infinity accepted anywhere) and the SHA-256 digest of those bytes
+identifies the exact parameter set. The registry binding is a data pin
+only — this package never imports SCPN Phase Orchestrator code.
 """
 
 from __future__ import annotations
@@ -166,8 +169,8 @@ class DeviceConfiguration:
         Returns
         -------
         tuple of ConsistencyFinding
-            Advisory findings from the documented estimates; empty when
-            the centre-of-mass energy sits in the documented light-ion
+            Advisory findings from the declared estimates; empty when
+            the centre-of-mass energy sits in the declared light-ion
             window. Findings are advisory instruments, not machine
             claims.
         """
@@ -180,7 +183,7 @@ class DeviceConfiguration:
                     field="beam.kinetic_energy_kev",
                     message=(
                         f"centre-of-mass energy {energy:.1f} keV is outside "
-                        f"the documented light-ion cross-section window "
+                        f"the declared light-ion cross-section window "
                         f"[{low:.0f}, {high:.0f}] keV"
                     ),
                 )

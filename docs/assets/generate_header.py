@@ -10,7 +10,7 @@
 
 Every image is original generated artwork derived from this repository's
 own domain surface — the beam on a stationary target, the
-one-versus-two beam-line class invariant, and the documented
+one-versus-two beam-line class invariant, and the declared
 centre-of-mass cross-section window. The right-hand text panel states
 only facts backed by the repository itself.
 
@@ -21,7 +21,7 @@ Outputs (written next to this script):
 - ``repo_header_line_invariant.png`` — one beam line for a target,
   exactly two for colliding beams.
 - ``repo_header_energy_window.png`` — the cross-section curve with the
-  documented window and flagged energies on both sides.
+  declared window and flagged energies on both sides.
 
 Generation-time tooling only: requires ``numpy`` and ``matplotlib``,
 which are deliberately not part of the pinned development lock. Run as
@@ -52,7 +52,7 @@ TITLE_METRICS: list[tuple[str, str]] = [
     ("Device Configurations", "beam_target · colliding_beam"),
     ("Beam-Line Invariant", "one for target, two for colliding"),
     ("Energy Window", "outside cross-section window flagged"),
-    ("Reference", "Bosch & Hale, NF 32 (1992) 611"),
+    ("Reference", "NRL Plasma Formulary (2019)"),
     ("Plan Envelope", "v1.1.0 · synthetic · review-only"),
     ("Quality Gates", "100% branch cov · mypy --strict"),
 ]
@@ -496,7 +496,7 @@ def generate_energy_window() -> None:
     ax.text(
         (x_low + x_high) / 2,
         8.55,
-        "documented cross-section window",
+        "declared cross-section window",
         color=GREEN,
         fontsize=8.5,
         fontfamily="monospace",
@@ -545,8 +545,7 @@ def generate_energy_window() -> None:
     ax.text(
         5.0,
         0.95,
-        "declared centre-of-mass energy checked against the documented "
-        "light-ion window",
+        "declared centre-of-mass energy checked against the declared light-ion window",
         color="#445566",
         fontsize=8,
         fontfamily="monospace",
@@ -555,7 +554,7 @@ def generate_energy_window() -> None:
     ax.text(
         5.0,
         0.58,
-        "Bosch & Hale, Nucl. Fusion 32 (1992) 611",
+        "Duane fit · NRL Plasma Formulary (2019), p. 45",
         color="#445566",
         fontsize=7.5,
         fontfamily="monospace",

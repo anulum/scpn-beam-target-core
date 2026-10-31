@@ -99,6 +99,7 @@ def test_consistency_report_clean_and_finding() -> None:
     findings = weak.consistency_report()
     assert len(findings) == 1
     assert "cross-section window" in findings[0].message
+    assert "declared light-ion" in findings[0].message
 
 
 def test_canonical_round_trip_and_digest() -> None:

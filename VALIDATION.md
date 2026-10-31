@@ -84,10 +84,12 @@ What is exercised, all under the 100 % statement-and-branch coverage gate:
   tested.
 - The nonrelativistic equal-mass centre-of-mass relations (`E/2` fixed
   target, `2E` symmetric collider) as documented derived quantities,
-  with an advisory finding outside the documented light-ion
-  cross-section window `[10, 300] keV` (D-T peak near 64 keV c.m.;
-  Bosch & Hale, Nucl. Fusion 32 (1992) 611), reported and never
-  clamped.
+  with an advisory finding outside the declared light-ion
+  cross-section window `[10, 300] keV` (the level-0 Duane fit with the
+  filed NRL Formulary coefficients puts the D-T peak at about 113 keV
+  deuteron energy, about 68 keV c.m.; the earlier Bosch & Hale 1992
+  credit and its "near 64 keV" value were removed on 2026-10-31, the
+  article is not on file), reported and never clamped.
 - Canonical serialisation (sorted keys, NaN/infinity rejected on both
   emit and parse), SHA-256 digest identity, and a strict round-trip
   parser that refuses unknown fields.

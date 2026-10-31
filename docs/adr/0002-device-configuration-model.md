@@ -40,9 +40,11 @@ follow the family pilot.
    target and ``E_cm = 2E`` for symmetric colliding beams (standard
    two-body kinematics). Advisory finding, reported by
    `consistency_report()` and never clamped: a centre-of-mass energy
-   outside the documented ``[10, 300] keV`` window in which
-   light-ion fusion cross sections are appreciable (D-T peak near
-   64 keV c.m.; H.-S. Bosch, G. M. Hale, Nucl. Fusion 32 (1992) 611).
+   outside the declared ``[10, 300] keV`` window in which light-ion
+   fusion cross sections are appreciable. The level-0 Duane fit with the
+   filed 2019 NRL Plasma Formulary coefficients (p. 45) puts the D-T
+   peak at a deuteron energy of about 113 keV, about 68 keV in the
+   centre-of-mass frame.
 5. Repository-level `evidence_maturity` = the highest state claimed by
    any capability entry; per-capability states are the authoritative
    claim surface.
@@ -61,3 +63,13 @@ follow the family pilot.
   bunch-level clocks, safety envelope) build on these types; maturity
   advances per capability only with the evidence the family standard
   requires.
+
+## Amendment 2026-10-31
+
+The light-ion window and a "D-T peak near 64 keV c.m." were credited to
+H.-S. Bosch, G. M. Hale, Nucl. Fusion 32 (1992) 611, which is not on
+file. The peak is now stated from the repository's own Duane fit with
+the filed NRL Formulary coefficients: about 113 keV deuteron energy,
+about 68 keV in the centre-of-mass frame (the fit differs from the
+Bosch-Hale parameterisation). The ``[10, 300] keV`` window is named
+declared. No value or check changed.
