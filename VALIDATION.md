@@ -27,6 +27,7 @@ followed by the evidence record of each implemented capability.
 | Licensing | `reuse lint` | REUSE 3.x compliance of the full tree |
 | Workflow lint | `actionlint` | all files under `.github/workflows/` |
 | Workflow modularity | `python3 tools/audit_workflows.py` | distributed workflow inventory: single ownership per job, coordinator/gate contract, action pinning, size ceilings |
+| Installed wheel (CI only) | `python -I tools/installed_package_check.py --mode base|cad --checkout <checkout>` in clean environments holding the built wheel with the kernel library (base) or with the CAD extra (cad) | package imported from site-packages, `py.typed` shipped, metadata version and kernel requirement, configuration round trip, deterministic level-0 record and tessellated model of the synthetic reference beam line and target; base must raise `CadUnavailableError` for a CAD request, cad must build a B-rep model with its STEP digest |
 | Documentation | `python3 tools/preflight.py --only docs` | UTF-8 readability and relative-link integrity of every Markdown file |
 | Orchestrated | `python3 tools/preflight.py` | fail-closed run of all gates above |
 
@@ -48,6 +49,7 @@ verifies locally and in hosted CI.
 | `ci.yml` | coordinator and stable required gate |
 | `reusable-static-policy.yml` | lint, format, typing, domain policy, workflow guard |
 | `reusable-tests.yml` | tests with complete statement and branch coverage |
+| `reusable-package.yml` | wheel build and installed-wheel checks in clean base and CAD environments |
 | `pre-commit.yml` | exact pre-commit parity |
 | `codeql.yml` | Python code scanning |
 | `security-audit.yml` | secrets, dependency, licence, and workflow policy |
