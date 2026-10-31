@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T03:25:55.967312+00:00",
+  "generated_at": "2026-10-31T09:57:02.816043+00:00",
   "label": "local",
   "parameters": {
     "points": 20000,
@@ -8,10 +8,10 @@
     "warmup": 3
   },
   "platform": {
-    "commit": "9881ca7e22a3fdaa32bcee424589d1a1780edeaa",
+    "commit": "882bf0596edbba6dcf1ae387f6d3a08f779d3055",
     "cpu_model": "11th Gen Intel(R) Core(TM) i5-11600K @ 3.90GHz",
     "isolated_cores": false,
-    "load_average_1min_at_start": "3.18",
+    "load_average_1min_at_start": "9.05",
     "machine": "x86_64",
     "platform": "Linux-7.0.0-34-generic-x86_64-with-glibc2.39",
     "python": "3.12.3"
@@ -21,13 +21,13 @@
       "backend": "python_floor",
       "name": "closed_forms",
       "stats": {
-        "max_us_per_point": 2.9196888,
-        "mean_us_per_point": 2.087076985,
-        "min_us_per_point": 1.8771189999999998,
-        "p50_us_per_point": 1.9944094,
-        "p95_us_per_point": 2.3810963,
-        "p99_us_per_point": 2.9196888,
-        "throughput_points_per_s": 501401.56780247827
+        "max_us_per_point": 5.1433574,
+        "mean_us_per_point": 3.2434021774999997,
+        "min_us_per_point": 2.2884750499999997,
+        "p50_us_per_point": 3.0009221,
+        "p95_us_per_point": 4.271495900000001,
+        "p99_us_per_point": 5.1433574,
+        "throughput_points_per_s": 333230.90925952396
       },
       "status": "measured"
     },
@@ -35,19 +35,19 @@
       "backend": "rust_native",
       "name": "closed_forms",
       "stats": null,
-      "status": "unavailable: this package has no native crate; the level-0 kernels use + - * /, the correctly rounded sqrt and the platform expm1, exp and pow, and the native decision of audit plan Q01 awaits the owner"
+      "status": "unavailable: this package has no native crate; the level-0 kernels use + - * /, the correctly rounded sqrt and the platform expm1, exp and pow, and the decision on a native backend is open with the project owner"
     },
     {
       "backend": "python_floor",
       "name": "level0_record",
       "stats": {
-        "max_us_per_point": 27.265103,
-        "mean_us_per_point": 23.390701775,
-        "min_us_per_point": 20.5401435,
-        "p50_us_per_point": 23.2650685,
-        "p95_us_per_point": 26.043319,
-        "p99_us_per_point": 27.265103,
-        "throughput_points_per_s": 42982.89515029796
+        "max_us_per_point": 44.1854905,
+        "mean_us_per_point": 33.21992865,
+        "min_us_per_point": 25.459972,
+        "p50_us_per_point": 33.071904499999995,
+        "p95_us_per_point": 41.8187455,
+        "p99_us_per_point": 44.1854905,
+        "throughput_points_per_s": 30237.145852909685
       },
       "status": "measured"
     },
@@ -55,7 +55,7 @@
       "backend": "rust_native",
       "name": "level0_record",
       "stats": null,
-      "status": "unavailable: this package has no native crate; the level-0 kernels use + - * /, the correctly rounded sqrt and the platform expm1, exp and pow, and the native decision of audit plan Q01 awaits the owner"
+      "status": "unavailable: this package has no native crate; the level-0 kernels use + - * /, the correctly rounded sqrt and the platform expm1, exp and pow, and the decision on a native backend is open with the project owner"
     }
   ],
   "schema": "scpn-beam-target-core.level0-physics-benchmark.v1"

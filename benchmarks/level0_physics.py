@@ -61,8 +61,9 @@ from scpn_beam_target_core.physics import (  # noqa: E402
 SCHEMA: Final = "scpn-beam-target-core.level0-physics-benchmark.v1"
 NATIVE_STATUS: Final = (
     "unavailable: this package has no native crate; the level-0 kernels use "
-    "+ - * /, the correctly rounded sqrt and the platform expm1, exp and pow, "
-    "and the native decision of audit plan Q01 awaits the owner"
+    "+ - * /, the correctly rounded sqrt and the platform expm1, exp and "
+    "pow, and the decision on a native backend is open with the project "
+    "owner"
 )
 REFERENCE_CURRENT_MA: Final = 50.0
 
