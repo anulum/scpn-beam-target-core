@@ -129,9 +129,11 @@ What is exercised, all under the 100 % statement-and-branch coverage gate:
   against the facility clock), a target-outcome set (noncyclic against
   the beam-gate epoch), and the model-owned synthetic oscillator
   (simulation clock).
-- A documented advisory band check with its source stated in the code:
-  the common accelerator RF cavity range 10 MHz–3 GHz (Wangler, RF
-  Linear Accelerators, 2nd ed., 2008); findings are reported, never
+- Advisory checks against declared synthetic design bounds: an
+  accelerator RF band of 10 MHz–3 GHz and a ~1000 s run-duration bound.
+  They were earlier credited to Wangler, RF Linear Accelerators (2008),
+  which is not on file, so the numbers have not been checked against it and
+  the attribution was removed (2026-10-31). Findings are reported, never
   clamped.
 - Canonical serialisation (sorted keys, NaN/infinity rejected on both
   emit and parse), SHA-256 digest identity, and a strict round-trip

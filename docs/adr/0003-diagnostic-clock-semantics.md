@@ -48,9 +48,11 @@ owns: `beam.rf_bunch_phase` (direct cyclic), `beam.target_outcome`
    non-simulation clock, numerical-only to the simulation clock).
 4. Timing is fail-closed where physics fixes the bound: the Nyquist
    criterion for the direct-cyclic class. The device-typical band
-   check is advisory only: the common accelerator RF cavity range
-   10 MHz–3 GHz (T. P. Wangler, RF Linear Accelerators, 2nd ed.,
-   Wiley, 2008).
+   check is advisory only and compares against a declared synthetic
+   design band of 10 MHz–3 GHz. An earlier version credited it to
+   T. P. Wangler, RF Linear Accelerators (2008), which is not on file, so
+   the band was never checked against it; the attribution was removed
+   (2026-10-31).
 5. The reference plan mirrors canonical practice with synthetic
    declarations: an RF cavity/bunch-phase reference (direct cyclic), a
    target-outcome set (noncyclic against the beam-gate epoch), and the

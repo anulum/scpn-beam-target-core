@@ -414,8 +414,9 @@ class DiagnosticPlan:
                         message=(
                             "declared cavity/bunch band "
                             f"{channel.max_signal_frequency_hz:.1f} "
-                            "Hz is outside the common accelerator RF "
-                            "range 10 MHz-3 GHz (Wangler 2008)"
+                            "Hz is outside the declared accelerator RF "
+                            "design band 10 MHz-3 GHz (synthetic; not "
+                            "checked against a source on file)"
                         ),
                     )
                 )
@@ -426,8 +427,9 @@ class DiagnosticPlan:
                         message=(
                             "acquisition window "
                             f"{channel.acquisition_duration_s:.2e} s is "
-                            "longer than the beam-target run scale of up to "
-                            "~1000 s (Wangler 2008 context)"
+                            "longer than the declared ~1000 s run-duration "
+                            "bound (synthetic; not checked against a source "
+                            "on file)"
                         ),
                     )
                 )
